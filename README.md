@@ -1,5 +1,5 @@
 # electric-ecommerce
-This project is to showcase my understanding of database design along with using REST API and CRUD methodologies. This will allows users (both customers and employees) to make purchases, update inventory, and keep track of changes. Since this will only be a demo, I will be using JavaScript, sqlite3, and node.js/express. 
+This project is to showcase my understanding of database design along with using REST API and CRUD methodologies. This will allows users (both customers and employees) to make purchases, update inventory, and keep track of changes. Since this will only be a demo, I will be using JavaScript, better-sqlite3, and node.js/express. 
 
 # Database Schema
 This is what my database schema looks like: 
