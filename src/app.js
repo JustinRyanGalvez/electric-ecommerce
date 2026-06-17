@@ -1,22 +1,25 @@
 import express from "express";
 import dotenv from "dotenv";
+import itemRoutes from './routes/itemRoutes.js';
+import inventoryRoutes from './routes/inventoryRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 // Allows .env file to be called anywhere using process.env
 dotenv.config();
 
 const app = express();
 const port = 3000;
-const url = `https://localhost:${port}`;
+const serverUrl = `http://localhost:${port}`;
 
 // Creates app
 app.use(express.json());
 
-// Home - where user will pick customer or employee
-app.use("/home", home);
+app.use('/items', itemRoutes);
 
-// To see inventory (would be the same on both sides)
-app.use("/inventory", inventory);
+app.use('/orders', orderRoutes);
+
+app.use('/inventory', inventoryRoutes);
 
 app.listen(port, () => {
-  console.log(`http://localhost:${port}/home...`);
+  console.log(`Server running on ${serverUrl}...`);
 });
