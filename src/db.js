@@ -1,8 +1,8 @@
-import Database from 'better-sqlite3';
-const db = new Database('inventory.db');
+import Database from "better-sqlite3";
+const db = new Database("inventory.db");
 
 // Acknowledges foreign keys
-db.pragma('foreign_keys=ON');
+db.pragma("foreign_keys=ON");
 
 const create_user_data_table = `
   CREATE TABLE IF NOT EXISTS user_data (
@@ -53,21 +53,23 @@ const create_inventory_transactions_table = `
     )
 `;
 
-const create_user_order_items_table = `
-  CREATE TABLE IF NOT EXISTS user_order_items (
+const create_user_transaction_items_table = `
+  CREATE TABLE IF NOT EXISTS user_transaction_items (
     order_item_line INT NOT NULL,
-    order_id VARCHAR(50) NOT NULL,
+    order_id INT NOT NULL,
     item_id INT NOT NULL,
+    price REAL NOT NULL,
+    qty INT NOT NULL, 
     PRIMARY KEY (order_item_line, order_id),
     FOREIGN KEY (order_id) REFERENCES user_transactions(order_id),
     FOREIGN KEY (item_id) REFERENCES item_data(item_id)
     )
   `;
 
-const create_inventory_receipt_items_table = `
-  CREATE TABLE IF NOT EXISTS inventory_receipt_items (
+const create_inventory_transaction_items_table = `
+  CREATE TABLE IF NOT EXISTS inventory_transaction_items (
     receipt_item_line INT NOT NULL,
-    receipt_id VARCHAR(50) NOT NULL,
+    receipt_id INT NOT NULL,
     item_id INT NOT NULL,
     cost REAL NOT NULL,
     qty INT NOT NULL,
@@ -83,10 +85,11 @@ try {
   db.exec(create_item_data_table);
   db.exec(create_user_transactions_table);
   db.exec(create_inventory_transactions_table);
-  db.exec(create_user_order_items_table);
-  db.exec(create_inventory_receipt_items_table);
-  console.log('Database initialized successfully!');
+  db.exec(create_user_transaction_items_table);
+  db.exec(create_inventory_transaction_items_table);
+  console.log("Database initialized successfully!");
 } catch (err) {
-  console.error('Database initialization failed:', err.message);
+  console.error("Database initialization failed:", err.message);
 }
 
+export default db;
